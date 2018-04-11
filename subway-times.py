@@ -3,6 +3,7 @@
 # pip install datetime
 # pip install humanize
 # pip install flask
+# pip install colorama
 
 import datetime
 import os
