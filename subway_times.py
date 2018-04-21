@@ -51,6 +51,8 @@ def printTrains(trains):
     os.system('clear')
     for train in trains[:20]:
         print train['train'] + " arriving " + train['time']
+    os.system('sudo ~/Documents/Code/rpi-rgb-led-matrix/rpi-rgb-led-matrix-58830f7bb5dfb47fc24f1fd26cd7c4e3a20f13f7/examples-api-use/text-example --led-no-hardware-pulse --led-gpio-mapping=adafruit-hat --led-rows=32 --led-cols=64 --led-slowdown-gpio=2 -f ../fonts/8x13.bdf -C 0,204,175')
+    os.system('Testing')
 
 def getFourFiveSix():
     fourfivesix = []
