@@ -251,7 +251,7 @@ class RunText(SampleBase):
         yellow = graphics.Color(252,204,10)
         black = graphics.Color(0,0,0)
         white = graphics.Color(220, 220, 220)
-        white = graphics.Color(230, 0, 0)
+        red = graphics.Color(230, 0, 0)
         left = True
         wait = 0
 
