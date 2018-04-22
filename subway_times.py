@@ -276,7 +276,7 @@ class RunText(SampleBase):
             
             time = datetime.datetime.now().time()
             timeLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,time)
-            graphics.DrawText(offscreen_canvas,clockFont,63-timeLen,6,time)
+            graphics.DrawText(offscreen_canvas,clockFont,63-timeLen,6,white,time)
 
 #if pos + len < 16:
 #               pos = 64
