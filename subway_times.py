@@ -10,6 +10,7 @@
 import datetime
 import os
 import time
+import calendar
 
 from samplebase import SampleBase
 from rgbmatrix import graphics
@@ -251,7 +252,8 @@ class RunText(SampleBase):
         yellow = graphics.Color(252,204,10)
         black = graphics.Color(0,0,0)
         white = graphics.Color(220, 220, 220)
-        red = graphics.Color(230, 0, 0)
+        red = graphics.Color(204, 51, 0)
+        green = graphics.Color(0, 120, 60)
         left = True
         wait = 0
 
@@ -284,10 +286,14 @@ class RunText(SampleBase):
             else:
                 clockFont = graphics.Font()
                 clockFont.LoadFont('../rpi-rgb-led-matrix/rpi-rgb-led-matrix-58830f7bb5dfb47fc24f1fd26cd7c4e3a20f13f7/fonts/7x14B.bdf')
+                
+                dateText = date = datetime.datetime.today().strftime("%A, %B %d")
+                dateLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,red,dateText)
+                graphics.DrawText(offscreen_canvas,clockFont,((64-dateLen)/2)+1,14,red,dateText)
             
                 clockTime = datetime.datetime.now().strftime("%I:%M%p")
                 timeLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,red,clockTime)
-                graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2)+1,21,red,clockTime)
+                graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2)+1,29,green,clockTime)
             #else:
             #    if left:
             #        if pos + len > 63:
