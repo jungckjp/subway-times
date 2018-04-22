@@ -275,7 +275,7 @@ class RunText(SampleBase):
             clockFont.LoadFont('../rpi-rgb-led-matrix/rpi-rgb-led-matrix-58830f7bb5dfb47fc24f1fd26cd7c4e3a20f13f7/fonts/4x6.bdf')
             
             time = datetime.datetime.now().time()
-            timeLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,time)
+            timeLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,white,time)
             graphics.DrawText(offscreen_canvas,clockFont,63-timeLen,6,white,time)
 
 #if pos + len < 16:
