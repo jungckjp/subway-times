@@ -264,16 +264,24 @@ class RunText(SampleBase):
                 #textColor,
                 #my_text,
                 #)
-            len = graphics.DrawText(offscreen_canvas,font,pos,12,white,"5min(3:53)")
-            graphics.DrawText(offscreen_canvas,font,pos,27,white,"13min(4:01)")
+            len = graphics.DrawText(offscreen_canvas,font,pos,12,white,"5 min")
+            graphics.DrawText(offscreen_canvas,font,pos,27,white,"13 min")
             for y in range(0, 31):
                 graphics.DrawLine(offscreen_canvas,0,y,16,y,black)
                 
             self.draw4(offscreen_canvas)
-            if pos + len < 16:
-                pos = 64
-            else:
-                pos -= 1
+            
+            clockFont = graphics.Font()
+            clockFont.LoadFont('../rpi-rgb-led-matrix/rpi-rgb-led-matrix-58830f7bb5dfb47fc24f1fd26cd7c4e3a20f13f7/fonts/4x6.bdf')
+            
+            time = datetime.datetime.now().time()
+            timeLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,time)
+            graphics.DrawText(offscreen_canvas,clockFont,63-timeLen,6,time)
+
+#if pos + len < 16:
+#               pos = 64
+#           else:
+#               pos -= 1
             #if wait > 0:
             #    wait -= 1
             #else:
