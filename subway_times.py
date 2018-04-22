@@ -251,6 +251,7 @@ class RunText(SampleBase):
         yellow = graphics.Color(252,204,10)
         black = graphics.Color(0,0,0)
         white = graphics.Color(220, 220, 220)
+        white = graphics.Color(230, 0, 0)
         left = True
         wait = 0
 
@@ -285,8 +286,8 @@ class RunText(SampleBase):
                 clockFont.LoadFont('../rpi-rgb-led-matrix/rpi-rgb-led-matrix-58830f7bb5dfb47fc24f1fd26cd7c4e3a20f13f7/fonts/7x14B.bdf')
             
                 clockTime = datetime.datetime.now().strftime("%I:%M%p")
-                timeLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,white,clockTime)
-                graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2),21,white,clockTime)
+                timeLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,red,clockTime)
+                graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2)+1,21,red,clockTime)
             #else:
             #    if left:
             #        if pos + len > 63:
