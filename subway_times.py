@@ -285,13 +285,14 @@ class RunText(SampleBase):
                 self.draw4(offscreen_canvas)
             else:
                 clockFont = graphics.Font()
-                clockFont.LoadFont('../rpi-rgb-led-matrix/rpi-rgb-led-matrix-58830f7bb5dfb47fc24f1fd26cd7c4e3a20f13f7/fonts/7x14B.bdf')
+                clockFont.LoadFont('../rpi-rgb-led-matrix/rpi-rgb-led-matrix-58830f7bb5dfb47fc24f1fd26cd7c4e3a20f13f7/fonts/5x7.bdf')
                 
                 dateText = date = datetime.datetime.today().strftime("%A, %B %d")
                 dateLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,red,dateText)
                 graphics.DrawText(offscreen_canvas,clockFont,((64-dateLen)/2)+1,14,red,dateText)
-            
                 clockTime = datetime.datetime.now().strftime("%I:%M%p")
+                if clockTime[0] == "0":
+                    clockTime = clockTime[1:]
                 timeLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,red,clockTime)
                 graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2)+1,29,green,clockTime)
             #else:
