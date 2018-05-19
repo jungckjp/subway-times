@@ -124,7 +124,7 @@ class RunText(SampleBase):
                                     'timetech': timeuntiltrain})
                         if (((traintime - currenttime).seconds / 60) > 8):
                             return str(((traintime - currenttime).seconds / 60)) + " min"
-        return "No trains" #fourfivesix
+        return "0 min" #fourfivesix
 
     def getQ(self):
         q = []
@@ -159,7 +159,7 @@ class RunText(SampleBase):
                                  'timetech': timeuntiltrain})
                         if (((traintime - currenttime).seconds / 60) > 8):
                             return str(((traintime - currenttime).seconds / 60)) + " min"
-        return "No trains" #q
+        return "0 min" #q
 
     def getSBS(self):
         sbs = []
@@ -289,10 +289,10 @@ class RunText(SampleBase):
 #               pos -= 1
             if wait > 0:
                 wait -= 1
-                len = graphics.DrawText(offscreen_canvas,font,64,12,white,qTime)
-                graphics.DrawText(offscreen_canvas,font,63 - len,12,white,qTime)
-                twolen = graphics.DrawText(offscreen_canvas,font,64,27,white,fTime)
-                graphics.DrawText(offscreen_canvas,font,63 - twolen,27,white,fTime)
+                len = graphics.DrawText(offscreen_canvas,font,64,12,white,fTime)
+                graphics.DrawText(offscreen_canvas,font,63 - len,12,white,fTime)
+                twolen = graphics.DrawText(offscreen_canvas,font,64,27,white,qTime)
+                graphics.DrawText(offscreen_canvas,font,63 - twolen,27,white,qTime)
                 for y in range(0, 31):
                     graphics.DrawLine(offscreen_canvas,0,y,16,y,black)
                 self.draw4(offscreen_canvas)
