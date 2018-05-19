@@ -138,7 +138,7 @@ class RunText(SampleBase):
         for entity in feed.entity:
             if entity.HasField('trip_update'):
                 for stopUpdate in entity.trip_update.stop_time_update:
-                    if stopUpdate.stop_id == 'Q04S':
+                    if stopUpdate.stop_id == 'Q04N':
                         currenttime = datetime.datetime.now()
                         traintime = \
                             datetime.datetime.fromtimestamp(stopUpdate.arrival.time)
