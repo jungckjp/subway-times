@@ -118,7 +118,9 @@ class RunText(SampleBase):
                                     'time': humanize.naturaltime(timeuntiltrain)
                                     + ' (' + traintimetext + ')',
                                     'timetech': timeuntiltrain})
-        return fourfivesix
+                        if (((traintime - currenttime).seconds / 60) > 8):
+                            return str(((traintime - currenttime).seconds / 60)) + " min"
+        return "No trains" #fourfivesix
 
     def getQ(self):
         q = []
@@ -151,7 +153,9 @@ class RunText(SampleBase):
                                  'time': humanize.naturaltime(timeuntiltrain)
                                  + ' (' + traintimetext + ')',
                                  'timetech': timeuntiltrain})
-        return q
+                        if (((traintime - currenttime).seconds / 60) > 8):
+                            return str(((traintime - currenttime).seconds / 60)) + " min"
+        return "No trains" #q
 
     def getSBS(self):
         sbs = []
@@ -257,8 +261,13 @@ class RunText(SampleBase):
         orange = graphics.Color(230,138,0)
         sickgreen = graphics.Color(204,204,0)
         left = True
-        wait = 100
+        wait = 60
         
+        qTime = "0 min"
+        fTime = "0 min"
+        qTime = self.getQ()
+        fTime = self.getFourFiveSix()
+
         while True:
             offscreen_canvas.Clear()
             #len = graphics.DrawText(
@@ -274,12 +283,12 @@ class RunText(SampleBase):
 #               pos = 64
 #           else:
 #               pos -= 1
-            if wait > 60:
+            if wait > 0:
                 wait -= 1
-                len = graphics.DrawText(offscreen_canvas,font,64,12,white,"5 min")
-                graphics.DrawText(offscreen_canvas,font,63 - len,12,white,"5 min")
-                twolen = graphics.DrawText(offscreen_canvas,font,64,27,white,"13 min")
-                graphics.DrawText(offscreen_canvas,font,63 - twolen,27,white,"13 min")
+                len = graphics.DrawText(offscreen_canvas,font,64,12,white,qTime)
+                graphics.DrawText(offscreen_canvas,font,63 - len,12,white,qTime)
+                twolen = graphics.DrawText(offscreen_canvas,font,64,27,white,fTime)
+                graphics.DrawText(offscreen_canvas,font,63 - twolen,27,white,fTime)
                 for y in range(0, 31):
                     graphics.DrawLine(offscreen_canvas,0,y,16,y,black)
                 self.draw4(offscreen_canvas)
@@ -298,10 +307,9 @@ class RunText(SampleBase):
                     clockTime = clockTime[1:]
                 timeLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,red,clockTime)
                 graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2)+1,28,green,clockTime)
-                if wait < 0:
-                    wait = 160
-                else:
-                    wait -= 1
+                qTime = self.getQ()
+                fTime = self.getFourFiveSix()
+                wait = 60
             #else:
             #    if left:
             #        if pos + len > 63:
