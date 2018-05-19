@@ -105,7 +105,7 @@ class RunText(SampleBase):
                                     ,
                                     'time': humanize.naturaltime(timeuntiltrain)
                                     + ' (' + traintimetext + ')',
-                                    'timetech': timeuntiltrain})
+                                    'timetech': timeuntiltrain, 'minutes': ((traintime - currenttime).seconds / 60)})
                         if entity.trip_update.trip.route_id == '5':
                             fourfivesix.append({'train': '86th Street '
                                     + Back.GREEN + Fore.WHITE + ' 5 '
@@ -113,7 +113,7 @@ class RunText(SampleBase):
                                     ,
                                     'time': humanize.naturaltime(timeuntiltrain)
                                     + ' (' + traintimetext + ')',
-                                    'timetech': timeuntiltrain})
+                                    'timetech': timeuntiltrain, 'minutes': ((traintime - currenttime).seconds / 60)})
                         if entity.trip_update.trip.route_id == '6':
                             fourfivesix.append({'train': '86th Street '
                                     + Back.GREEN + Fore.WHITE + ' 6 '
