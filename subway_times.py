@@ -348,7 +348,7 @@ class RunText(SampleBase):
                     #do nothing
                     print "Failed to fetch."
                 wait = 10
-                #time.sleep(15)
+                time.sleep(30)
             #else:
             #    if left:
             #        if pos + len > 63:
