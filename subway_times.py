@@ -312,8 +312,8 @@ class RunText(SampleBase):
                 timeLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,red,clockTime)
                 graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2)+1,28,green,clockTime)
                 #qTime = self.getQ()
+                offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                 fTime = self.getFourFiveSix()
-                time.sleep(30)
                 wait = 60
             #else:
             #    if left:
