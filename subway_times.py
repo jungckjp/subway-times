@@ -316,6 +316,9 @@ class RunText(SampleBase):
                 try:
                     fTime = self.getFourFiveSix()
                     qTime = self.getQ()
+                except:
+                    #do nothing
+                    print "Failed to fetch."
                 wait = 10
             #else:
             #    if left:
