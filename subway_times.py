@@ -11,6 +11,7 @@ import datetime
 import os
 import time
 import calendar
+import urllib
 
 from samplebase import SampleBase
 from rgbmatrix import graphics
@@ -74,7 +75,10 @@ class RunText(SampleBase):
                          + config.SUBWAY_API_KEY + '&feed_id=1')
 
         feed2 = gtfs_realtime_pb2.FeedMessage()
-        feed2.ParseFromString(response2.content)
+        responseMsg = urllib.urlopen('http://datamine.mta.info/mta_esi.php?key='
+                         + config.SUBWAY_API_KEY + '&feed_id=1')
+        #feed2.ParseFromString(response2.content)
+        feed2.ParseFromString(responseMsg.read())
         for entity in feed2.entity:
             if entity.HasField('trip_update'):
                 for stopUpdate in entity.trip_update.stop_time_update:

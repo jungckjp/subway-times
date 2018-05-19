@@ -84,7 +84,7 @@ def getFourFiveSix():
 def getQ():
     q = []
     response = requests.get("http://datamine.mta.info/mta_esi.php?key=" + config.SUBWAY_API_KEY +"&feed_id=16")
-
+    print (response.content)
     feed = gtfs_realtime_pb2.FeedMessage()
     feed.ParseFromString(response.content)
 
@@ -130,5 +130,5 @@ def getSBS():
 if __name__ == '__main__':
     while True:
         #refresh()
-        getFourFiveSix()
+        getQ()
         time.sleep(10)
