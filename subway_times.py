@@ -122,8 +122,19 @@ class RunText(SampleBase):
                                     'time': humanize.naturaltime(timeuntiltrain)
                                     + ' (' + traintimetext + ')',
                                     'timetech': timeuntiltrain})
-                        if (((traintime - currenttime).seconds / 60) > 8):
-                            return str(((traintime - currenttime).seconds / 60)) + " min"
+        trains = []        
+        for train in fourfivesix[:20]:
+            trains.append(train)
+
+        sort_on = 'timetech'
+        decorated = [(dict_[sort_on], dict_) for dict_ in trains]
+        decorated.sort()
+        trains = [dict_ for (key, dict_) in decorated]
+        trains.reverse()
+
+        for train in trains:
+            if (((traintime - currenttime).seconds / 60) > 8):
+                return str(((traintime - currenttime).seconds / 60)) + " min"
         return "0 min" #fourfivesix
 
     def getQ(self):
@@ -138,7 +149,7 @@ class RunText(SampleBase):
         for entity in feed.entity:
             if entity.HasField('trip_update'):
                 for stopUpdate in entity.trip_update.stop_time_update:
-                    if stopUpdate.stop_id == 'Q04N':
+                    if stopUpdate.stop_id == 'Q04S':
                         currenttime = datetime.datetime.now()
                         traintime = \
                             datetime.datetime.fromtimestamp(stopUpdate.arrival.time)
@@ -314,12 +325,17 @@ class RunText(SampleBase):
                 #qTime = self.getQ()
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                 try:
-                    fTime = self.getFourFiveSix()
-                    qTime = self.getQ()
+                    newFTime = self.getFourFiveSix()
+                    newQTime = self.getQ()
+                    if newFTime != "0 min":
+                        fTime = newFTime
+                    if newQTime != "0 min":
+                        qTime = newQTime
                 except:
                     #do nothing
                     print "Failed to fetch."
                 wait = 10
+                time.sleep(15)
             #else:
             #    if left:
             #        if pos + len > 63:
