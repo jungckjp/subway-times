@@ -313,6 +313,7 @@ class RunText(SampleBase):
                 graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2)+1,28,green,clockTime)
                 #qTime = self.getQ()
                 fTime = self.getFourFiveSix()
+                time.sleep(30)
                 wait = 60
             #else:
             #    if left:
