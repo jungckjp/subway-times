@@ -121,7 +121,7 @@ class RunText(SampleBase):
                                     ,
                                     'time': humanize.naturaltime(timeuntiltrain)
                                     + ' (' + traintimetext + ')',
-                                    'timetech': timeuntiltrain})
+                                    'timetech': timeuntiltrain, 'minutes': ((traintime - currenttime).seconds / 60)})
         trains = []        
         for train in fourfivesix[:20]:
             trains.append(train)
@@ -133,8 +133,8 @@ class RunText(SampleBase):
         #trains.reverse()
 
         for train in trains:
-            if (((traintime - currenttime).seconds / 60) > 8):
-                return str(((traintime - currenttime).seconds / 60)) + " min"
+            if int(train['minutes']) > 8:
+                return str(train['minutes']) + " min"
         return "0 min" #fourfivesix
 
     def getQ(self):
@@ -167,7 +167,7 @@ class RunText(SampleBase):
                                  + Back.RESET + ' South',
                                  'time': humanize.naturaltime(timeuntiltrain)
                                  + ' (' + traintimetext + ')',
-                                 'timetech': timeuntiltrain})
+                                 'timetech': timeuntiltrain, 'minutes': ((traintime - currenttime).seconds / 60)})
                         #if (((traintime - currenttime).seconds / 60) > 8):
                             #return str(((traintime - currenttime).seconds / 60)) + " min"
         trains = []        
@@ -178,11 +178,11 @@ class RunText(SampleBase):
         decorated = [(dict_[sort_on], dict_) for dict_ in trains]
         decorated.sort()
         trains = [dict_ for (key, dict_) in decorated]
-        #trains.reverse()
+        trains.reverse()
 
         for train in trains:
-            if (((traintime - currenttime).seconds / 60) > 8):
-                return str(((traintime - currenttime).seconds / 60)) + " min"
+            if int(train['minutes']) > 8:
+                return str(train['minutes']) + " min"
         return "0 min" #q
 
     def getSBS(self):
