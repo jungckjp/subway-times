@@ -265,7 +265,7 @@ class RunText(SampleBase):
         
         qTime = "0 min"
         fTime = "0 min"
-        qTime = self.getQ()
+        #qTime = self.getQ()
         fTime = self.getFourFiveSix()
 
         while True:
@@ -307,7 +307,7 @@ class RunText(SampleBase):
                     clockTime = clockTime[1:]
                 timeLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,red,clockTime)
                 graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2)+1,28,green,clockTime)
-                qTime = self.getQ()
+                #qTime = self.getQ()
                 fTime = self.getFourFiveSix()
                 wait = 60
             #else:
