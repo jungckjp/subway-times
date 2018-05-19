@@ -130,7 +130,7 @@ class RunText(SampleBase):
         decorated = [(dict_[sort_on], dict_) for dict_ in trains]
         decorated.sort()
         trains = [dict_ for (key, dict_) in decorated]
-        #trains.reverse()
+        trains.reverse()
 
         for train in trains:
             if int(train['minutes']) > 8:
