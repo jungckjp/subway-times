@@ -254,9 +254,11 @@ class RunText(SampleBase):
         white = graphics.Color(220, 220, 220)
         red = graphics.Color(204, 51, 0)
         green = graphics.Color(0, 120, 60)
+        orange = graphics.Color(230,138,0)
+        sickgreen = graphics.Color(204,204,0)
         left = True
-        wait = 0
-
+        wait = 100
+        
         while True:
             offscreen_canvas.Clear()
             #len = graphics.DrawText(
@@ -272,29 +274,34 @@ class RunText(SampleBase):
 #               pos = 64
 #           else:
 #               pos -= 1
-            if wait > 0:
+            if wait > 60:
                 wait -= 1
-            else:
-                wait = 60
-            
-            if wait > 30:
-                len = graphics.DrawText(offscreen_canvas,font,pos,12,white,"5 min")
-                graphics.DrawText(offscreen_canvas,font,pos,27,white,"13 min")
+                len = graphics.DrawText(offscreen_canvas,font,64,12,white,"5 min")
+                graphics.DrawText(offscreen_canvas,font,63 - len,12,white,"5 min")
+                twolen = graphics.DrawText(offscreen_canvas,font,64,27,white,"13 min")
+                graphics.DrawText(offscreen_canvas,font,63 - twolen,27,white,"13 min")
                 for y in range(0, 31):
                     graphics.DrawLine(offscreen_canvas,0,y,16,y,black)
                 self.draw4(offscreen_canvas)
             else:
                 clockFont = graphics.Font()
                 clockFont.LoadFont('../rpi-rgb-led-matrix/rpi-rgb-led-matrix-58830f7bb5dfb47fc24f1fd26cd7c4e3a20f13f7/fonts/5x7.bdf')
-                
-                dateText = date = datetime.datetime.today().strftime("%A, %B %d")
+                dayText = datetime.datetime.today().strftime("%A")
+                dayLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,red,dayText)
+                dateText = datetime.datetime.today().strftime("%B %d")
                 dateLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,red,dateText)
-                graphics.DrawText(offscreen_canvas,clockFont,((64-dateLen)/2)+1,14,red,dateText)
+                graphics.DrawText(offscreen_canvas,clockFont,((64-dateLen)/2)+1,19,red,dateText)
+                graphics.DrawText(offscreen_canvas,clockFont,((64-dayLen)/2)+1,10,red,dayText)
+
                 clockTime = datetime.datetime.now().strftime("%I:%M%p")
                 if clockTime[0] == "0":
                     clockTime = clockTime[1:]
                 timeLen = graphics.DrawText(offscreen_canvas,clockFont,64,6,red,clockTime)
-                graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2)+1,29,green,clockTime)
+                graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2)+1,28,green,clockTime)
+                if wait < 0:
+                    wait = 160
+                else:
+                    wait -= 1
             #else:
             #    if left:
             #        if pos + len > 63:
@@ -318,6 +325,8 @@ if __name__ == '__main__':
         run_text = RunText()
         if (not run_text.process()):
             run_text.print_help()
+
+        time.sleep(5)
 
     # refresh()
     # time.sleep(30)
