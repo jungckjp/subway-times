@@ -130,7 +130,7 @@ class RunText(SampleBase):
         decorated = [(dict_[sort_on], dict_) for dict_ in trains]
         decorated.sort()
         trains = [dict_ for (key, dict_) in decorated]
-        trains.reverse()
+        #trains.reverse()
 
         for train in trains:
             if (((traintime - currenttime).seconds / 60) > 8):
@@ -168,8 +168,21 @@ class RunText(SampleBase):
                                  'time': humanize.naturaltime(timeuntiltrain)
                                  + ' (' + traintimetext + ')',
                                  'timetech': timeuntiltrain})
-                        if (((traintime - currenttime).seconds / 60) > 8):
-                            return str(((traintime - currenttime).seconds / 60)) + " min"
+                        #if (((traintime - currenttime).seconds / 60) > 8):
+                            #return str(((traintime - currenttime).seconds / 60)) + " min"
+        trains = []        
+        for train in q[:20]:
+            trains.append(train)
+
+        sort_on = 'timetech'
+        decorated = [(dict_[sort_on], dict_) for dict_ in trains]
+        decorated.sort()
+        trains = [dict_ for (key, dict_) in decorated]
+        #trains.reverse()
+
+        for train in trains:
+            if (((traintime - currenttime).seconds / 60) > 8):
+                return str(((traintime - currenttime).seconds / 60)) + " min"
         return "0 min" #q
 
     def getSBS(self):
