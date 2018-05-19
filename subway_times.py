@@ -265,7 +265,7 @@ class RunText(SampleBase):
         orange = graphics.Color(230,138,0)
         sickgreen = graphics.Color(204,204,0)
         left = True
-        wait = 60
+        wait = 10
         
         qTime = "0 min"
         fTime = "0 min"
@@ -313,8 +313,10 @@ class RunText(SampleBase):
                 graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2)+1,28,green,clockTime)
                 #qTime = self.getQ()
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-                fTime = self.getFourFiveSix()
-                wait = 60
+                try:
+                    fTime = self.getFourFiveSix()
+                    qTime = self.getQ()
+                wait = 10
             #else:
             #    if left:
             #        if pos + len > 63:
@@ -329,7 +331,7 @@ class RunText(SampleBase):
             #            left = True
             #            wait = 6
 
-            time.sleep(0.05)
+            time.sleep(1)
             offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
 
 
