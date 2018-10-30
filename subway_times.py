@@ -340,7 +340,7 @@ class RunText(SampleBase):
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                 
                 
-                if numLoops == 20:
+                if numLoops == 5:
                     numLoops = 0
                     try:
                         newFTime = self.getFourFiveSix()
@@ -354,8 +354,8 @@ class RunText(SampleBase):
                         print "Failed to fetch."
                 else:
                     numLoops = numLoops + 1;
-                wait = 10
-                time.sleep(30)
+                wait = 5
+                time.sleep(10)
             #else:
             #    if left:
             #        if pos + len > 63:
