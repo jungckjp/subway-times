@@ -21,7 +21,6 @@ import requests
 from colorama import Back, Fore, Style
 from google.transit import gtfs_realtime_pb2
 
-
 class RunText(SampleBase):
     
     def __init__(self, *args, **kwargs):
@@ -274,7 +273,7 @@ class RunText(SampleBase):
 
     def run(self):
         numLoops = 0;
-        self.matrix.brightness = 25
+        self.matrix.brightness = 75
         traintime = "86th Q" #self.refresh()
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
@@ -294,7 +293,7 @@ class RunText(SampleBase):
         
         qTime = "0 min"
         fTime = "0 min"
-        #qTime = self.getQ()
+        qTime = self.getQ()
         fTime = self.getFourFiveSix()
 
         while True:
@@ -340,7 +339,7 @@ class RunText(SampleBase):
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
                 
                 
-                if numLoops == 5:
+                if numLoops == 3:
                     numLoops = 0
                     try:
                         newFTime = self.getFourFiveSix()
@@ -354,7 +353,7 @@ class RunText(SampleBase):
                         print "Failed to fetch."
                 else:
                     numLoops = numLoops + 1;
-                wait = 5
+                wait = 10
                 time.sleep(10)
             #else:
             #    if left:
