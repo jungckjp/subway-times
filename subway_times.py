@@ -273,7 +273,8 @@ class RunText(SampleBase):
         graphics.DrawLine(canvas,11,9 + offset,11,9 + offset,black)
 
     def run(self):
-        self.matrix.brightness = 75
+        numLoops = 0;
+        self.matrix.brightness = 25
         traintime = "86th Q" #self.refresh()
         offscreen_canvas = self.matrix.CreateFrameCanvas()
         font = graphics.Font()
@@ -337,16 +338,22 @@ class RunText(SampleBase):
                 graphics.DrawText(offscreen_canvas,clockFont,((64-timeLen)/2)+1,28,green,clockTime)
                 #qTime = self.getQ()
                 offscreen_canvas = self.matrix.SwapOnVSync(offscreen_canvas)
-                try:
-                    newFTime = self.getFourFiveSix()
-                    newQTime = self.getQ()
-                    if newFTime != "0 min":
-                        fTime = newFTime
-                    if newQTime != "0 min":
-                        qTime = newQTime
-                except:
-                    #do nothing
-                    print "Failed to fetch."
+                
+                
+                if numLoops == 20:
+                    numLoops = 0
+                    try:
+                        newFTime = self.getFourFiveSix()
+                        newQTime = self.getQ()
+                        if newFTime != "0 min":
+                            fTime = newFTime
+                        if newQTime != "0 min":
+                            qTime = newQTime
+                    except:
+                        #do nothing
+                        print "Failed to fetch."
+                else:
+                    numLoops = numLoops + 1;
                 wait = 10
                 time.sleep(30)
             #else:
