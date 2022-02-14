@@ -49,7 +49,7 @@ class RunText(SampleBase):
         decorated = [(dict_[sort_on], dict_) for dict_ in trains]
         decorated.sort()
         trains = [dict_ for (key, dict_) in decorated]
-        trains.reverse()
+        # trains.reverse()
 
         trains = filter(lambda a: a['timetech'] \
                         < datetime.timedelta(minutes=-8), trains)  # or "SBS" in a['train']
