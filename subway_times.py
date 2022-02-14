@@ -144,7 +144,7 @@ class RunText(SampleBase):
         responseMsg = urlopen(req)
 
         feed = gtfs_realtime_pb2.FeedMessage()
-        feed.ParseFromString(responseMsg.content)
+        feed.ParseFromString(responseMsg.read())
 
         for entity in feed.entity:
             if entity.HasField('trip_update'):
