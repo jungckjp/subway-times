@@ -30,7 +30,7 @@ class RunText(SampleBase):
 
 
     def refresh(self):
-        print Fore.RESET + Back.RESET
+        print(Fore.RESET + Back.RESET)
         trains = []
 
         q = self.getQ()
@@ -66,7 +66,7 @@ class RunText(SampleBase):
     def printTrains(self,trains):
         os.system('clear')
         for train in trains[:20]:
-            print train['train'] + ' arriving ' + train['time']
+            print(train['train'] + ' arriving ' + train['time'])
 
     def getFourFiveSix(self):
         API_headers = {"x-api-key": config.SUBWAY_API_KEY}
