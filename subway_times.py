@@ -12,6 +12,7 @@ import os
 import time
 import calendar
 import urllib
+from urllib.request import Request, urlopen
 
 from samplebase import SampleBase
 from rgbmatrix import graphics
@@ -70,12 +71,12 @@ class RunText(SampleBase):
     def getFourFiveSix(self):
         API_headers = {"x-api-key": config.SUBWAY_API_KEY}
         fourfivesix = []
-        response2 = \
-            requests.get('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs', headers=API_headers)
+        # response2 = requests.get('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs', headers=API_headers)
 
         feed2 = gtfs_realtime_pb2.FeedMessage()
-        responseMsg = urllib.urlopen('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs',
-                         headers=API_headers)
+	req = Request('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs')
+	req.add_header('x-api-key', config.SUBWAY_API_KEY)
+        responseMsg = urllib.urlopen(req)
         #feed2.ParseFromString(response2.content)
         feed2.ParseFromString(responseMsg.read())
         for entity in feed2.entity:
@@ -139,12 +140,12 @@ class RunText(SampleBase):
     def getQ(self):
         API_headers = {"x-api-key": config.SUBWAY_API_KEY}
         q = []
-        response = \
-            requests.get('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs'
-                         , headers=API_headers)
+        req = Request('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-nqrw')
+	req.add_header('x-api-key', config.SUBWAY_API_KEY)
+        responseMsg = urllib.urlopen(req)
 
         feed = gtfs_realtime_pb2.FeedMessage()
-        feed.ParseFromString(response.content)
+        feed.ParseFromString(responseMsg.content)
 
         for entity in feed.entity:
             if entity.HasField('trip_update'):
