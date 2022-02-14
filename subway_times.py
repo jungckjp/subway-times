@@ -11,8 +11,7 @@ import datetime
 import os
 import time
 import calendar
-import urllib
-from urllib.request import Request, urlopen
+from import urllib2 import urlopen, Request
 
 from samplebase import SampleBase
 from rgbmatrix import graphics
