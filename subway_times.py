@@ -141,7 +141,7 @@ class RunText(SampleBase):
         API_headers = {"x-api-key": config.SUBWAY_API_KEY}
         q = []
         req = Request('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-nqrw')
-	req.add_header('x-api-key', config.SUBWAY_API_KEY)
+        req.add_header('x-api-key', config.SUBWAY_API_KEY)
         responseMsg = urllib.urlopen(req)
 
         feed = gtfs_realtime_pb2.FeedMessage()
