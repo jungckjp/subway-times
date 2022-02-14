@@ -33,7 +33,7 @@ class RunText(SampleBase):
         trains = []
 
         q = self.getQ()
-        sbs = self.getSBS()
+        # sbs = self.getSBS()
         fourfivesix = self.getFourFiveSix()
 
         for train in fourfivesix[:20]:
@@ -42,8 +42,8 @@ class RunText(SampleBase):
         for train in q[:20]:
             trains.append(train)
 
-        for train in sbs[:20]:
-            trains.append(train)
+        # for train in sbs[:20]:
+        #     trains.append(train)
 
         sort_on = 'timetech'
         decorated = [(dict_[sort_on], dict_) for dict_ in trains]
@@ -68,14 +68,14 @@ class RunText(SampleBase):
             print train['train'] + ' arriving ' + train['time']
 
     def getFourFiveSix(self):
+        API_headers = {"x-api-key": config.SUBWAY_API_KEY}
         fourfivesix = []
         response2 = \
-            requests.get('http://datamine.mta.info/mta_esi.php?key='
-                         + config.SUBWAY_API_KEY + '&feed_id=1')
+            requests.get('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs', headers=API_headers)
 
         feed2 = gtfs_realtime_pb2.FeedMessage()
-        responseMsg = urllib.urlopen('http://datamine.mta.info/mta_esi.php?key='
-                         + config.SUBWAY_API_KEY + '&feed_id=1')
+        responseMsg = urllib.urlopen('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs',
+                         headers=API_headers)
         #feed2.ParseFromString(response2.content)
         feed2.ParseFromString(responseMsg.read())
         for entity in feed2.entity:
@@ -137,10 +137,11 @@ class RunText(SampleBase):
         return "0 min" #fourfivesix
 
     def getQ(self):
+        API_headers = {"x-api-key": config.SUBWAY_API_KEY}
         q = []
         response = \
-            requests.get('http://datamine.mta.info/mta_esi.php?key='
-                         + config.SUBWAY_API_KEY + '&feed_id=16')
+            requests.get('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs'
+                         , headers=API_headers)
 
         feed = gtfs_realtime_pb2.FeedMessage()
         feed.ParseFromString(response.content)
@@ -184,38 +185,38 @@ class RunText(SampleBase):
                 return str(train['minutes']) + " min"
         return "0 min" #q
 
-    def getSBS(self):
-        sbs = []
-        response = \
-            requests.get('http://gtfsrt.prod.obanyc.com/tripUpdates?key='
-                          + config.BUS_API_KEY)
+    # def getSBS(self):
+    #     sbs = []
+    #     response = \
+    #         requests.get('http://gtfsrt.prod.obanyc.com/tripUpdates?key='
+    #                       + config.BUS_API_KEY)
 
-        feed = gtfs_realtime_pb2.FeedMessage()
-        feed.ParseFromString(response.content)
+    #     feed = gtfs_realtime_pb2.FeedMessage()
+    #     feed.ParseFromString(response.content)
 
-        for entity in feed.entity:
-            if entity.HasField('trip_update'):
-                for stopUpdate in entity.trip_update.stop_time_update:
-                    if stopUpdate.stop_id == '401922':
-                        currenttime = datetime.datetime.now()
-                        traintime = \
-                            datetime.datetime.fromtimestamp(stopUpdate.arrival.time)
-                        timeuntiltrain = currenttime - traintime
-                        traintimetext = ''
-                        if int(traintime.strftime('%H')) > 12:
-                            traintimetext = \
-                                str(int(traintime.strftime('%H')) - 12) \
-                                + traintime.strftime(':%M') + ' PM'
-                        else:
-                            traintimetext = traintime.strftime('%H:%M') \
-                                + ' AM'
-                        sbs.append({'train': '86th Street ' + Back.BLUE
-                                   + Fore.LIGHTRED_EX + 'SBS'
-                                   + Fore.RESET + Back.RESET + ' West',
-                                   'time': humanize.naturaltime(timeuntiltrain)
-                                   + ' (' + traintimetext + ')',
-                                   'timetech': timeuntiltrain})
-        return sbs
+    #     for entity in feed.entity:
+    #         if entity.HasField('trip_update'):
+    #             for stopUpdate in entity.trip_update.stop_time_update:
+    #                 if stopUpdate.stop_id == '401922':
+    #                     currenttime = datetime.datetime.now()
+    #                     traintime = \
+    #                         datetime.datetime.fromtimestamp(stopUpdate.arrival.time)
+    #                     timeuntiltrain = currenttime - traintime
+    #                     traintimetext = ''
+    #                     if int(traintime.strftime('%H')) > 12:
+    #                         traintimetext = \
+    #                             str(int(traintime.strftime('%H')) - 12) \
+    #                             + traintime.strftime(':%M') + ' PM'
+    #                     else:
+    #                         traintimetext = traintime.strftime('%H:%M') \
+    #                             + ' AM'
+    #                     sbs.append({'train': '86th Street ' + Back.BLUE
+    #                                + Fore.LIGHTRED_EX + 'SBS'
+    #                                + Fore.RESET + Back.RESET + ' West',
+    #                                'time': humanize.naturaltime(timeuntiltrain)
+    #                                + ' (' + traintimetext + ')',
+    #                                'timetech': timeuntiltrain})
+    #     return sbs
 
     def drawCircle(self, canvas, offset, color):
         graphics.DrawLine(canvas,7,0 + offset,11,0 + offset,color)
@@ -350,7 +351,7 @@ class RunText(SampleBase):
                             qTime = newQTime
                     except:
                         #do nothing
-                        print "Failed to fetch."
+                        print("Failed to fetch.")
                 else:
                     numLoops = numLoops + 1;
                 wait = 10
