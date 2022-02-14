@@ -75,7 +75,7 @@ class RunText(SampleBase):
         feed2 = gtfs_realtime_pb2.FeedMessage()
         req = Request('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs')
         req.add_header('x-api-key', config.SUBWAY_API_KEY)
-        responseMsg = urllib.urlopen(req)
+        responseMsg = urlopen(req)
         #feed2.ParseFromString(response2.content)
         feed2.ParseFromString(responseMsg.read())
         for entity in feed2.entity:
@@ -141,7 +141,7 @@ class RunText(SampleBase):
         q = []
         req = Request('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-nqrw')
         req.add_header('x-api-key', config.SUBWAY_API_KEY)
-        responseMsg = urllib.urlopen(req)
+        responseMsg = urlopen(req)
 
         feed = gtfs_realtime_pb2.FeedMessage()
         feed.ParseFromString(responseMsg.content)
