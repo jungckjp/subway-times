@@ -74,8 +74,8 @@ class RunText(SampleBase):
         # response2 = requests.get('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs', headers=API_headers)
 
         feed2 = gtfs_realtime_pb2.FeedMessage()
-	req = Request('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs')
-	req.add_header('x-api-key', config.SUBWAY_API_KEY)
+        req = Request('https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs')
+        req.add_header('x-api-key', config.SUBWAY_API_KEY)
         responseMsg = urllib.urlopen(req)
         #feed2.ParseFromString(response2.content)
         feed2.ParseFromString(responseMsg.read())
